@@ -2,7 +2,11 @@ import Image from "next/image";
 import { Fragment } from "react";
 import { Nft } from "@metaplex-foundation/js";
 import { Listbox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import {
+  CheckIcon,
+  ChevronUpDownIcon,
+  ExclamationTriangleIcon,
+} from "@heroicons/react/20/solid";
 
 interface NftSelectorProps {
   nfts: Nft[];
@@ -12,10 +16,6 @@ interface NftSelectorProps {
   text?: string;
   disabled?: boolean;
 }
-
-const classNames = (...classes: string[]) => {
-  return classes.filter(Boolean).join(" ");
-};
 
 export default function NftSelect({
   nfts,
@@ -51,57 +51,33 @@ export default function NftSelect({
               <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                 {nfts.map((nft) => (
                   <Listbox.Option
-                    key={nft.address.toBase58()}
-                    className={({ active }) =>
-                      classNames(
-                        active ? "bg-indigo-600 text-white" : "text-gray-900",
-                        "relative h-16 cursor-default select-none py-2 pl-3 pr-9"
-                      )
-                    }
                     value={nft}
+                    key={nft.address.toBase58()}
+                    className="relative h-16 cursor-default select-none py-2 pl-3 pr-9 text-gray-900 ui-active:bg-indigo-600 ui-active:text-white"
                   >
-                    {({ selected, active }) => {
-                      return (
-                        <>
-                          <div className="flex items-center">
-                            {nft.json?.image ? (
-                              <Image
-                                src={nft.json.image || ""}
-                                alt={nft.json?.name || nft.name}
-                                height={48}
-                                width={48}
-                                className="flex-shrink-0 rounded-sm"
-                              />
-                            ) : (
-                              <div className="h-12 w-12 flex-shrink-0 rounded-sm bg-gray-300" />
-                            )}
+                    <div className="flex items-center">
+                      {nft.json?.image ? (
+                        <Image
+                          src={nft.json.image}
+                          alt={nft.json.name || nft.name}
+                          height={48}
+                          width={48}
+                          className="flex-shrink-0 rounded-sm"
+                        />
+                      ) : (
+                        <div className="h-12 w-12 flex-shrink-0 rounded-sm bg-gray-300 p-2">
+                          <ExclamationTriangleIcon className="m-auto h-8 w-8 text-gray-400" />
+                        </div>
+                      )}
 
-                            <span
-                              className={classNames(
-                                selected ? "font-semibold" : "font-normal",
-                                "ml-3 block truncate"
-                              )}
-                            >
-                              {nft.name}
-                            </span>
-                          </div>
+                      <span className="ml-3 block truncate font-normal ui-selected:font-semibold">
+                        {nft.json?.name || nft.name}
+                      </span>
+                    </div>
 
-                          {selected ? (
-                            <span
-                              className={classNames(
-                                active ? "text-white" : "text-indigo-600",
-                                "absolute inset-y-0 right-0 flex items-center pr-4"
-                              )}
-                            >
-                              <CheckIcon
-                                className="h-5 w-5"
-                                aria-hidden="true"
-                              />
-                            </span>
-                          ) : null}
-                        </>
-                      );
-                    }}
+                    <span className="absolute inset-y-0 right-0 hidden items-center pr-4 text-indigo-600 ui-selected:flex ui-active:text-white">
+                      <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                    </span>
                   </Listbox.Option>
                 ))}
               </Listbox.Options>
