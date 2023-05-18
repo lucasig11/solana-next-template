@@ -1,14 +1,42 @@
 "use client";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import Link from "next/link";
+import MobileMenu from "./MobileMenu";
 
-export default function Header({ title }: { title: string }) {
+interface HeaderProps {
+  title: string;
+  pages?: Page[];
+}
+
+interface Page {
+  name: string;
+  href: string;
+  icon: React.ReactNode;
+}
+
+export default function Header({ title, pages }: HeaderProps) {
   return (
-    <nav className="fixed flex max-h-16 min-w-full flex-row items-center justify-evenly bg-gray-800 px-16 py-4 text-sky-100">
-      <Link href="/" className="flex min-w-fit flex-row gap-2">
-        <h1 className="align-middle text-2xl font-bold">{title}</h1>
+    <header className="fixed z-50 flex h-16 w-full flex-row items-center justify-evenly bg-gray-800 p-4 text-sky-100 ">
+      <div className="fixed left-4 top-2 md:hidden">
+        <MobileMenu pages={pages} />
+      </div>
+
+      <Link
+        href="/"
+        className="m-auto flex min-w-fit flex-row gap-2 text-xl font-bold md:m-0 md:text-2xl"
+      >
+        {title}
       </Link>
-      <WalletMultiButton />
-    </nav>
+
+      <nav className="mx-4 hidden divide-x divide-sky-100 md:flex">
+        {pages?.map(({ href, name }) => (
+          <Link href={href} key={href} className="text-md px-4">
+            <span>{name}</span>
+          </Link>
+        ))}
+      </nav>
+
+      <WalletMultiButton className="hidden md:order-2 md:flex" />
+    </header>
   );
 }
