@@ -67,7 +67,7 @@ export default function NftSelect({
                             {nft.json?.image ? (
                               <Image
                                 src={nft.json.image || ""}
-                                alt={nft.name}
+                                alt={nft.json?.name || nft.name}
                                 height={48}
                                 width={48}
                                 className="flex-shrink-0 rounded-sm"
