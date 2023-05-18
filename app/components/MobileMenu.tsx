@@ -1,3 +1,5 @@
+"use client";
+import { Popover, Transition } from "@headlessui/react";
 import {
   ArrowRightOnRectangleIcon,
   ArrowsRightLeftIcon,
@@ -6,12 +8,11 @@ import {
   ClipboardDocumentIcon,
   WalletIcon,
 } from "@heroicons/react/20/solid";
-import { useWalletModal } from "@solana/wallet-adapter-react-ui";
-import Link from "next/link";
-import { Popover, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useState } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import Image from "next/image";
+import Link from "next/link";
+import { Fragment, useEffect, useState } from "react";
 
 interface MobileMenuProps {
   pages?: Page[];

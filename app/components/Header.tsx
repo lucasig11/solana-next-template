@@ -1,7 +1,6 @@
-"use client";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
+import WalletMultiButton from "./WalletMultiButton";
 
 interface HeaderProps {
   title: string;

@@ -1,12 +1,12 @@
-import Image from "next/image";
-import { Fragment } from "react";
-import { Nft } from "@metaplex-foundation/js";
 import { Listbox, Transition } from "@headlessui/react";
 import {
   CheckIcon,
   ChevronUpDownIcon,
   ExclamationTriangleIcon,
 } from "@heroicons/react/20/solid";
+import { Nft } from "@metaplex-foundation/js";
+import Image from "next/image";
+import { Fragment } from "react";
 
 interface NftSelectorProps {
   nfts: Nft[];

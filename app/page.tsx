@@ -1,9 +1,9 @@
 "use client";
+import NftSelect from "@/components/NftSelect";
+import { getWalletNfts } from "@/utils/getWalletNfts";
 import { Nft } from "@metaplex-foundation/js";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useEffect, useState } from "react";
-import NftSelect from "./components/NftSelect";
-import { getWalletNfts } from "./utils/getWalletNfts";
 
 export default function Home() {
   const { connection } = useConnection();
