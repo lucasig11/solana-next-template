@@ -1,3 +1,4 @@
+import { truncatePublicKey } from "@/utils/truncatePublicKey";
 import { Listbox, Transition } from "@headlessui/react";
 import {
   CheckIcon,
@@ -16,6 +17,42 @@ interface NftSelectorProps {
   text?: string;
   disabled?: boolean;
 }
+
+const SelectOption = (nft: Nft) => (
+  <Listbox.Option
+    value={nft}
+    key={nft.address.toBase58()}
+    className="relative h-16 cursor-default select-none py-2 pl-3 pr-9 text-gray-900 ui-active:bg-indigo-600 ui-active:text-white"
+  >
+    <div className="flex items-center">
+      {nft.json?.image ? (
+        <Image
+          src={nft.json.image}
+          alt={nft.json.name || nft.name}
+          height={48}
+          width={48}
+          className="flex-shrink-0 rounded-sm"
+        />
+      ) : (
+        <div className="h-12 w-12 flex-shrink-0 rounded-sm bg-gray-300 p-2">
+          <ExclamationTriangleIcon className="m-auto h-8 w-8 text-gray-400" />
+        </div>
+      )}
+
+      <span className="ml-3 block truncate font-normal ui-selected:font-semibold">
+        {nft.json?.name || nft.name}
+      </span>
+
+      <span className="ml-3 block truncate text-xs font-semibold uppercase text-gray-400">
+        {truncatePublicKey(nft.address.toString())}
+      </span>
+    </div>
+
+    <span className="absolute inset-y-0 right-0 hidden items-center pr-4 text-indigo-600 ui-selected:flex ui-active:text-white">
+      <CheckIcon className="h-5 w-5" aria-hidden="true" />
+    </span>
+  </Listbox.Option>
+);
 
 export default function NftSelect({
   nfts,
@@ -49,37 +86,7 @@ export default function NftSelect({
               leaveTo="opacity-0"
             >
               <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                {nfts.map((nft) => (
-                  <Listbox.Option
-                    value={nft}
-                    key={nft.address.toBase58()}
-                    className="relative h-16 cursor-default select-none py-2 pl-3 pr-9 text-gray-900 ui-active:bg-indigo-600 ui-active:text-white"
-                  >
-                    <div className="flex items-center">
-                      {nft.json?.image ? (
-                        <Image
-                          src={nft.json.image}
-                          alt={nft.json.name || nft.name}
-                          height={48}
-                          width={48}
-                          className="flex-shrink-0 rounded-sm"
-                        />
-                      ) : (
-                        <div className="h-12 w-12 flex-shrink-0 rounded-sm bg-gray-300 p-2">
-                          <ExclamationTriangleIcon className="m-auto h-8 w-8 text-gray-400" />
-                        </div>
-                      )}
-
-                      <span className="ml-3 block truncate font-normal ui-selected:font-semibold">
-                        {nft.json?.name || nft.name}
-                      </span>
-                    </div>
-
-                    <span className="absolute inset-y-0 right-0 hidden items-center pr-4 text-indigo-600 ui-selected:flex ui-active:text-white">
-                      <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                  </Listbox.Option>
-                ))}
+                {nfts.map(SelectOption)}
               </Listbox.Options>
             </Transition>
           </div>
