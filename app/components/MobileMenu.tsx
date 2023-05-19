@@ -1,18 +1,9 @@
 "use client";
 import { Popover, Transition } from "@headlessui/react";
-import {
-  ArrowRightOnRectangleIcon,
-  ArrowsRightLeftIcon,
-  Bars3Icon,
-  ClipboardDocumentCheckIcon,
-  ClipboardDocumentIcon,
-  WalletIcon,
-} from "@heroicons/react/20/solid";
-import { useWallet } from "@solana/wallet-adapter-react";
-import { useWalletModal } from "@solana/wallet-adapter-react-ui";
-import Image from "next/image";
+import { Bars3Icon } from "@heroicons/react/20/solid";
 import Link from "next/link";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
+import WalletMultiButton from "./WalletMultiButton";
 
 interface MobileMenuProps {
   pages?: Page[];
@@ -45,95 +36,13 @@ const MobileMenu = ({ pages }: MobileMenuProps) => (
           ))}
 
           <div className="bg-gray-50 py-2">
-            <WalletButton />
+            <WalletMultiButton className="w-full" />
           </div>
         </nav>
       </Popover.Panel>
     </ScaleAndFadeTransition>
   </Popover>
 );
-
-/* Wallet button, for now used only in the mobile menu */
-const WalletButton = () => {
-  const walletModal = useWalletModal();
-  const { connected, disconnect, publicKey, wallet } = useWallet();
-  const [copied, setCopied] = useState(false);
-
-  const openModal = () => walletModal.setVisible(true);
-
-  const handleCopy = async () => {
-    if (publicKey) {
-      await navigator.clipboard.writeText(publicKey.toBase58());
-      setCopied(true);
-    }
-  };
-
-  useEffect(() => {
-    setTimeout(() => setCopied(false), 1000);
-  }, [copied]);
-
-  if (!connected) {
-    return (
-      <button
-        onClick={openModal}
-        className="flex w-full items-center justify-evenly rounded-lg p-2 text-sm text-gray-800 hover:bg-gray-200"
-      >
-        <WalletIcon className="mr-2 h-5 w-5" />
-        <p className="mx-auto">Connect wallet...</p>
-      </button>
-    );
-  }
-
-  // TODO: add connecting state
-
-  return (
-    <Popover>
-      <Popover.Button className="flex w-full items-center gap-2 rounded-lg p-2 text-sm text-gray-800 hover:bg-gray-200">
-        {wallet && (
-          <Image
-            src={wallet.adapter.icon}
-            alt={wallet.adapter.name}
-            width={32}
-            height={32}
-            className="h-5 w-5"
-          />
-        )}
-        <p className="truncate font-bold">{publicKey?.toBase58()}</p>
-      </Popover.Button>
-      <ScaleAndFadeTransition>
-        <Popover.Panel className="absolute left-0 mt-4 w-48 divide-y divide-gray-100 rounded-md bg-gray-50 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="p-1 ">
-            <button
-              onClick={handleCopy}
-              className="flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-800 hover:bg-gray-200"
-            >
-              {copied ? (
-                <ClipboardDocumentCheckIcon className="mr-2 h-5 w-5" />
-              ) : (
-                <ClipboardDocumentIcon className="mr-2 h-5 w-5" />
-              )}
-              Copy address
-            </button>
-            <button
-              onClick={openModal}
-              className="flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-800 hover:bg-gray-200"
-            >
-              <ArrowsRightLeftIcon className="mr-2 h-5 w-5" />
-              Change wallet...
-            </button>
-            <button
-              onClick={disconnect}
-              className="flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-800 hover:bg-gray-200"
-            >
-              <ArrowRightOnRectangleIcon className="mr-2 h-5 w-5" />
-              Disconnect
-            </button>
-          </div>
-        </Popover.Panel>
-      </ScaleAndFadeTransition>
-    </Popover>
-  );
-};
 
 const ScaleAndFadeTransition = ({ children }: React.PropsWithChildren) => (
   <Transition

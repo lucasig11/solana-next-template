@@ -22,7 +22,7 @@ export default function Header({ title, pages }: HeaderProps) {
 
       <Link
         href="/"
-        className="m-auto flex min-w-fit flex-row gap-2 text-xl font-bold md:m-0 md:text-2xl"
+        className="m-auto flex min-w-fit flex-row gap-2 pl-9 text-xl font-bold md:m-0 md:p-0 md:text-2xl"
       >
         {title}
       </Link>
@@ -35,7 +35,7 @@ export default function Header({ title, pages }: HeaderProps) {
         ))}
       </nav>
 
-      <WalletMultiButton className="hidden md:order-2 md:flex" />
+      <WalletMultiButton className="hidden w-fit text-sky-100 hover:text-gray-800 md:order-2 md:flex" />
     </header>
   );
 }
