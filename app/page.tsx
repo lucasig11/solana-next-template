@@ -41,7 +41,7 @@ export default function Home() {
       </a>
 
       <div className="flex w-full flex-col items-center space-y-2">
-        <h1 className="text-2xl font-bold">NFT Select</h1>
+        <h1 className="text-3xl font-bold text-gray-900">NFT Select</h1>
         <NftSelect
           multiple
           text={
