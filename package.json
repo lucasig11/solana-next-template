@@ -24,7 +24,7 @@
     "autoprefixer": "10.4.14",
     "bigint-buffer": "^1.1.5",
     "bn.js": "^5.2.1",
-    "eslint": "8.40.0",
+    "eslint": "8.41.0",
     "eslint-config-next": "13.4.2",
     "next": "13.4.2",
     "postcss": "8.4.23",
