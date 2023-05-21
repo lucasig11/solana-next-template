@@ -7,7 +7,6 @@ This repository provides a template for building decentralized applications (dAp
 ## TODO
 - [ ] **NFT Gallery:** showcase NFTs owned by user.
 - [ ] **Improve default theme/add dark theme**
-- [ ] **Toasts**
 
 ## Components
 
