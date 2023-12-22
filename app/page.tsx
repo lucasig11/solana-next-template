@@ -100,7 +100,7 @@ export default function Home() {
           allNFTs.map((nft_id, index) => (
             <div key={index}>
               {/* Display properties of each NFT object here */}
-              {/*<p>Name: {nft_id.name}</p>*/}
+              <p>Name: {nft_id.name}</p>
               {/* Add more properties as needed */}
             
             </div>
@@ -110,6 +110,7 @@ export default function Home() {
         )}
       </div>
 
+          {/* This image view of the NFTs stopped working after being deployed to vercel. */}
       <div>
         {allNFTImages.map((url, index) => (
           <Image key={index} src={url} alt="NFT Image" style={imageStyle}/>
