@@ -6,6 +6,7 @@ import { WalletAdapterNetwork,WalletNotConnectedError } from '@solana/wallet-ada
 import dynamic from "next/dynamic";
 import { useState, useEffect, useMemo } from "react";
 import { Connection, clusterApiUrl, Keypair, PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
+import Image from 'next/image'
 //import { Metadata } from "@metaplex-foundation/mpl-token-metadata";
 // Dynamically import components
 const NftSelect = dynamic(() => import("./components/NftSelect"), {
@@ -99,7 +100,7 @@ export default function Home() {
           allNFTs.map((nft_id, index) => (
             <div key={index}>
               {/* Display properties of each NFT object here */}
-              <p>Name: {nft_id.name}</p>
+              {/*<p>Name: {nft_id.name}</p>*/}
               {/* Add more properties as needed */}
             
             </div>
@@ -111,7 +112,7 @@ export default function Home() {
 
       <div>
         {allNFTImages.map((url, index) => (
-          <img key={index} src={url} alt="NFT Image" style={imageStyle}/>
+          <Image key={index} src={url} alt="NFT Image" style={imageStyle}/>
         ))}
       </div>
 
