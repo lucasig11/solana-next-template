@@ -1,4 +1,4 @@
-# Solana dApp Template with Next.js
+# Solana dApp with Next.js
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
